@@ -1,0 +1,4 @@
+.data/
+.agent/
+__pycache__/
+*.pyc

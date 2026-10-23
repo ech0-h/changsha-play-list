@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>长沙游玩清单</title>
+  <style>
+    /* 手机优先：内容随屏幕缩放，宽屏时居中显示。 */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f3f6f5;
+      color: #20352e;
+      font-family: system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    section { max-width: 480px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; line-height: 1.3; }
+    p { margin: 0 0 24px; color: #52665d; }
+    button {
+      display: block;
+      width: 100%;
+      min-height: 52px;
+      margin: 0 0 12px;
+      padding: 14px 16px;
+      border: 1px solid #bbcfc5;
+      border-radius: 12px;
+      background: #fff;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    button:active { background: #e4efe9; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #237653; outline-offset: 3px; }
+    ul { margin: 0 0 24px; padding: 0; list-style: none; }
+    li {
+      margin-bottom: 12px;
+      padding: 16px;
+      border: 1px solid #d8e2dd;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .source { margin-top: 28px; font-size: 13px; overflow-wrap: anywhere; }
+    a { color: #17634b; }
+    .detail > p:first-of-type { margin-bottom: 20px; font-size: 14px; }
+    .detail-card {
+      margin-bottom: 16px;
+      padding: 20px;
+      border: 1px solid #d8e2dd;
+      border-radius: 16px;
+      background: #fff;
+    }
+    .detail-card h2 { margin: 0 0 10px; font-size: 20px; line-height: 1.4; }
+    .detail-card p { margin: 0; }
+    .visitor-note { background: #edf5ef; border-color: #b8d2c0; }
+    .visit-facts { margin: 0; }
+    .visit-facts > div + div { margin-top: 16px; padding-top: 16px; border-top: 1px solid #cdded1; }
+    .visit-facts dt { margin-bottom: 4px; font-weight: 650; }
+    .visit-facts dd { margin: 0; color: #52665d; }
+    .detail .source { margin: 24px 0; line-height: 1.8; }
+    .detail > button { position: sticky; bottom: 12px; box-shadow: 0 4px 16px #20352e18; }
+    .place-name { display: block; font-weight: 650; }
+    .place-summary { display: block; margin-top: 6px; color: #52665d; font-size: 14px; }
+    h1:focus { outline: none; }
+    @media (max-width: 360px) {
+      body { padding: 20px 12px; }
+      .detail-card { padding: 16px; }
+      h1 { font-size: 25px; }
+    }
+  </style>
+</head>
+<body>
+  <section id="home">
+  <h1>长沙 · 去哪里玩</h1>
+  <p>从 3 个类别、4 个地点中，选一个感兴趣的去看看。</p>
+
+  <button type="button" onclick="showPage('culture')">文化人文 · 2 个地点</button>
+  <button type="button" onclick="showPage('nature')">自然休闲 · 1 个地点</button>
+  <button type="button" onclick="showPage('entertainment')">娱乐体验 · 1 个地点</button>
+  </section>
+
+  <section id="culture" hidden>
+    <h1>长沙 · 文化人文</h1>
+    <p>共 2 个地点，选择一个查看游玩内容与参观提示。</p>
+    <ul>
+      <li>
+        <button type="button" onclick="showPage('museum')"><span class="place-name">湖南省博物馆（原湖南博物院）</span><span class="place-summary">看马王堆文物，了解湖南历史。 查看详情 →</span></button>
+      </li>
+      <li>
+        <button type="button" onclick="showPage('academy')"><span class="place-name">岳麓书院</span><span class="place-summary">看书院古建筑，了解湖湘文化。 查看详情 →</span></button>
+      </li>
+    </ul>
+    <button type="button" onclick="showPage('home')">返回类别选择</button>
+  </section>
+
+  <section id="nature" hidden>
+    <h1>长沙 · 自然休闲</h1>
+    <p>共 1 个地点，选择查看游玩内容与参观提示。</p>
+    <ul>
+      <li><button type="button" onclick="showPage('orange-isle')"><span class="place-name">橘子洲</span><span class="place-summary">户外散步、欣赏湘江风景与雕塑。 查看详情 →</span></button></li>
+    </ul>
+    <button type="button" onclick="showPage('home')">返回类别选择</button>
+  </section>
+
+  <section id="entertainment" hidden>
+    <h1>长沙 · 娱乐体验</h1>
+    <p>共 1 个地点，选择查看游玩内容与参观提示。</p>
+    <ul>
+      <li><button type="button" onclick="showPage('window-of-world')"><span class="place-name">长沙世界之窗</span><span class="place-summary">体验游乐设施、主题景观与园区演艺。 查看详情 →</span></button></li>
+    </ul>
+    <button type="button" onclick="showPage('home')">返回类别选择</button>
+  </section>
+
+  <section id="museum" class="detail" hidden>
+    <h1>湖南省博物馆（原湖南博物院）</h1>
+    <p>文化人文 · 地点详情</p>
+
+    <div class="detail-card">
+      <h2>有什么可看</h2>
+      <p>常设陈列主题包括“长沙马王堆汉墓陈列”和“湖南人——三湘历史文化陈列”，可从马王堆文物了解西汉生活与湖南历史。具体展厅是否开放需看馆方最新公告。</p>
+    </div>
+
+    <div class="detail-card">
+      <h2>为什么推荐</h2>
+      <p>适合对汉代文物、考古发现和湖南历史文化感兴趣的参观者。</p>
+    </div>
+
+    <div class="detail-card visitor-note">
+      <h2>参观前确认</h2>
+      <dl class="visit-facts">
+        <div>
+          <dt>开放时间</dt>
+          <dd>周二至周日 9:00–17:00（16:00 停止入馆），周一闭馆，法定节假日安排以通告为准。</dd>
+        </div>
+        <div>
+          <dt>门票</dt>
+          <dd>两个基本陈列免费。</dd>
+        </div>
+        <div>
+          <dt>预约</dt>
+          <dd>个人需网络实名预约，可提前 5 天（不含当天）预约，最新一日门票每天 20:00 放出。</dd>
+        </div>
+        <div>
+          <dt>其他提醒</dt>
+          <dd>展厅临时调整以馆方公告为准。</dd>
+        </div>
+      </dl>
+    </div>
+    <p class="source">资料核对：2026-10-23。来源：<a href="https://www.hnmuseum.com/" target="_blank" rel="noopener">湖南省博物馆官网：开放时间、票务及预约说明</a>、<a href="https://whhlyt.hunan.gov.cn/whhlyt/news/gzdt/202510/t20251013_33823787.html" target="_blank" rel="noopener">官方更名公告</a>。预约规则和当日开放展厅以官网最新页面为准。</p>
+
+    <button type="button" onclick="showPage('culture')">返回文化人文清单</button>
+  </section>
+
+  <section id="academy" class="detail" hidden>
+    <h1>岳麓书院</h1>
+    <p>文化人文 · 地点详情</p>
+
+    <div class="detail-card">
+      <h2>有什么可看</h2>
+      <p>岳麓书院创建于北宋开宝九年（976年），是中国古代四大书院之一。可参观书院古建筑和历史陈设，了解书院教育与湖湘学术传统。</p>
+    </div>
+
+    <div class="detail-card">
+      <h2>为什么推荐</h2>
+      <p>适合喜欢历史建筑、传统教育文化和人文故事的参观者。</p>
+    </div>
+
+    <div class="detail-card visitor-note">
+      <h2>参观前确认</h2>
+      <dl class="visit-facts">
+        <div>
+          <dt>开放时间</dt>
+          <dd>5–10 月时段：7:50 开放，17:30 停止售票，17:40 停止入院，18:00 闭馆。11 月至次年 4 月时段不同。</dd>
+        </div>
+        <div>
+          <dt>门票</dt>
+          <dd>全价票 40 元。</dd>
+        </div>
+        <div>
+          <dt>预约</dt>
+          <dd>散客通过“岳麓书院”微信公众号实名预约，可提前 4 天（含当天）预约。优惠票及免票游客也须预约。</dd>
+        </div>
+      </dl>
+    </div>
+    <p class="source">资料核对：2026-10-23。来源：<a href="https://ylsy.hnu.edu.cn/info/1010/1011.htm" target="_blank" rel="noopener">岳麓书院简介</a>、<a href="https://ylsy.hnu.edu.cn/wbly/cgdn/zxdp.htm" target="_blank" rel="noopener">在线订票须知</a>。票价、预约和季节性开放安排以官方页面最新通知为准。</p>
+
+    <button type="button" onclick="showPage('culture')">返回文化人文清单</button>
+  </section>
+
+  <section id="orange-isle" class="detail" hidden>
+    <h1>橘子洲</h1>
+    <p>自然休闲 · 地点详情</p>
+
+    <div class="detail-card">
+      <h2>有什么可玩</h2>
+      <p>橘子洲是湘江中的江心洲，代表景观包括毛泽东青年艺术雕塑、问天台和诗词题刻，也有湿地生态与江景。</p>
+    </div>
+
+    <div class="detail-card">
+      <h2>为什么推荐</h2>
+      <p>适合想在户外散步、看江景，并了解长沙红色历史与诗词文化的参观者。</p>
+    </div>
+
+    <div class="detail-card visitor-note">
+      <h2>游玩前确认</h2>
+      <dl class="visit-facts">
+        <div>
+          <dt>开放时间</dt>
+          <dd>开放时间为 7:00–22:00，21:00 停止入园。</dd>
+        </div>
+        <div>
+          <dt>门票</dt>
+          <dd>景区免费开放。</dd>
+        </div>
+        <div>
+          <dt>预约</dt>
+          <dd>需实名预约，可通过“岳麓山橘子洲旅游区”微信公众号提前 3 天预约。</dd>
+        </div>
+        <div>
+          <dt>其他提醒</dt>
+          <dd>园内场馆及演出另有安排。</dd>
+        </div>
+      </dl>
+    </div>
+    <p class="source">资料核对：2026-10-23。来源：<a href="https://whhlyt.hunan.gov.cn/whhlyt/news/sxxw/202609/t20260923_34070837.html" target="_blank" rel="noopener">湖南省文化和旅游厅·橘子洲景区介绍及游览信息</a>。出发当天请复核景区公告。</p>
+
+    <button type="button" onclick="showPage('nature')">返回自然休闲清单</button>
+  </section>
+
+  <section id="window-of-world" class="detail" hidden>
+    <h1>长沙世界之窗</h1>
+    <p>娱乐体验 · 地点详情</p>
+
+    <div class="detail-card">
+      <h2>有什么可玩</h2>
+      <p>长沙世界之窗是主题乐园，汇集游乐设施、世界主题景观和园区演艺；具体设施及演出按日期安排。</p>
+    </div>
+
+    <div class="detail-card">
+      <h2>为什么推荐</h2>
+      <p>适合偏好游乐设施、主题活动和热闹游园体验的参观者。</p>
+    </div>
+
+    <div class="detail-card visitor-note">
+      <h2>游玩前确认</h2>
+      <dl class="visit-facts">
+        <div>
+          <dt>开放时间</dt>
+          <dd>园方自 9 月 1 日起公告的营业时间为 9:00–19:00，售票时间为 8:40–18:00；现场可能微调。</dd>
+        </div>
+        <div>
+          <dt>门票</dt>
+          <dd>票价、票种以园方官方售票页面及当天公告为准。</dd>
+        </div>
+        <div>
+          <dt>预约</dt>
+          <dd>预约要求以园方官方售票页面及当天公告为准。</dd>
+        </div>
+        <div>
+          <dt>其他提醒</dt>
+          <dd>项目限制以园方官方售票页面及当天公告为准。</dd>
+        </div>
+      </dl>
+    </div>
+    <p class="source">资料核对：2026-10-23。来源：<a href="https://weibo.com/2/detail/5338272056213609" target="_blank" rel="noopener">长沙世界之窗官方营业时间公告</a>、<a href="https://weibo.com/u/2113553714" target="_blank" rel="noopener">长沙世界之窗官方微博及门票入口</a>。营业安排可能根据现场情况微调。</p>
+
+    <button type="button" onclick="showPage('entertainment')">返回娱乐体验清单</button>
+  </section>
+
+  <script>
+    function renderPage(pageId) {
+      var nextPage = document.getElementById(pageId);
+      if (!nextPage || nextPage.tagName !== 'SECTION') {
+        nextPage = document.getElementById('home');
+      }
+      // 先隐藏各页，再显示按钮指定的那一页。
+      document.querySelectorAll('section').forEach(function (page) {
+        page.hidden = true;
+      });
+      nextPage.hidden = false;
+      // 每次进入新页面都从标题开始阅读，包括键盘和读屏用户。
+      var heading = nextPage.querySelector('h1');
+      heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+      document.title = nextPage.id === 'home' ? '长沙游玩清单' : heading.textContent + ' · 长沙游玩清单';
+      window.scrollTo(0, 0);
+      return nextPage.id;
+    }
+
+    function showPage(pageId) {
+      var currentId = renderPage(pageId);
+      // 同页重复点击不增加历史记录，刷新可直接恢复当前页面。
+      if (window.location.hash !== '#' + currentId) {
+        window.history.pushState(null, '', '#' + currentId);
+      }
+    }
+
+    function restorePage() {
+      var pageId;
+      try {
+        pageId = decodeURIComponent(window.location.hash.slice(1));
+      } catch (error) {
+        pageId = 'home';
+      }
+      var currentId = renderPage(pageId);
+      if (window.location.hash !== '#' + currentId) {
+        window.history.replaceState(null, '', '#' + currentId);
+      }
+    }
+
+    window.history.scrollRestoration = 'manual';
+    window.addEventListener('popstate', restorePage);
+    window.addEventListener('hashchange', restorePage);
+    restorePage();
+  </script>
+</body>
+</html>
